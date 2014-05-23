@@ -51,5 +51,13 @@ class Homestead
           s.args = [site["map"], site["to"]]
       end
     end
+
+    # Install the watches
+    settings["watches"].each do |watch|
+      config.vm.provision "shell" do |s|
+          s.inline = "bash /vagrant/scripts/watch.sh $1 \"$2\""
+          s.args = [watch["name"], watch["cmd"]]
+      end
+    end
   end
 end
